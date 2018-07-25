@@ -5,18 +5,24 @@ import copy
 import config as cfg
 from utils.blob import prep_im_for_blob, im_list_to_blob
 
-
 class DataLayer(caffe.Layer):
+    def getName(self):
+        return "DataLayer";
+    def getSelf(self):
+        return self;
     """Sample data layer used for training."""
 
     def _shuffle_data(self):
         print('Shuffling the data ...')
         sample = []
         sample_person = copy.deepcopy(self._data._sample_person)
+        
+        print('self._data: '+str(self._data))
+        
         for i in sample_person.keys():
             np.random.shuffle(sample_person[i])
         while len(sample_person) > 0:
-            person = np.random.choice(sample_person.keys())
+            person = np.random.choice(list(sample_person.keys()))
             while len(sample_person[person]) < cfg.CUT_SIZE:
                 sample_person[person].append(
                     np.random.choice(self._data._sample_person[person]))
@@ -31,7 +37,6 @@ class DataLayer(caffe.Layer):
     def _get_next_minibatch(self):
         # Sample to use for each image in this batch
         # Sample the samples randomly
-
         if self._index + self.batch_size <= len(self._data._sample):
             sample = self._data._sample[
                 self._index:self._index + self.batch_size]
@@ -72,9 +77,11 @@ class DataLayer(caffe.Layer):
     def set_data(self, data):
         """Set the data to be used by this layer during training."""
         self._data = data
+        print(' -------------------------------------------------- ')
         if cfg.TRIPLET_LOSS:
             print('Epoch {}'.format(self._epoch))
             self._shuffle_data()
+            print(' ----------------------  ok  ---------------------- ')
         else:
             np.random.shuffle(self._data._sample)
 
@@ -91,7 +98,7 @@ class DataLayer(caffe.Layer):
 
         self._index = 0
         self._epoch = 1
-
+        
         # data blob: holds a batch of N images, each with 3 channels
         # The height and width (100 x 100) are dummy values
         top[0].reshape(self.batch_size, 3, 224, 224)

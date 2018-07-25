@@ -430,10 +430,10 @@ layer {
   }
 }
 layer {
-  name: "fc6"
+  name: "fullyconnected6"
   type: "InnerProduct"
   bottom: "pool5"
-  top: "fc6"
+  top: "fullyconnected6"
   param {
     lr_mult: 0
     decay_mult: 0
@@ -452,23 +452,23 @@ layer {
 layer {
   name: "relu6"
   type: "ReLU"
-  bottom: "fc6"
-  top: "fc6"
+  bottom: "fullyconnected6"
+  top: "fullyconnected6"
 }
 layer {
   name: "drop6"
   type: "Dropout"
-  bottom: "fc6"
-  top: "fc6"
+  bottom: "fullyconnected6"
+  top: "fullyconnected6"
   dropout_param {
     dropout_ratio: 0.5
   }
 }
 layer {
-  name: "fc7"
+  name: "fullyconnected7"
   type: "InnerProduct"
-  bottom: "fc6"
-  top: "fc7"
+  bottom: "fullyconnected6"
+  top: "fullyconnected7"
   param {
     lr_mult: 0
     decay_mult: 0
@@ -487,24 +487,24 @@ layer {
 layer {
   name: "relu7"
   type: "ReLU"
-  bottom: "fc7"
-  top: "fc7"
+  bottom: "fullyconnected7"
+  top: "fullyconnected7"
 }
 layer {
   name: "drop7"
   type: "Dropout"
-  bottom: "fc7"
-  top: "fc7"
+  bottom: "fullyconnected7"
+  top: "fullyconnected7"
   dropout_param {
     dropout_ratio: 0.5
   }
 }
 #======================softmax====================
 # layer {
-#  name: "fc9"
+#  name: "fullyconnected9"
 #  type: "InnerProduct"
-#  bottom: "fc7"
-#  top: "fc9"
+#  bottom: "fullyconnected7"
+#  top: "fullyconnected9"
 #  param {
 #    lr_mult: 1
 #  }
@@ -521,7 +521,7 @@ layer {
 # layer {
 #  name: "accuracy"
 #  type:  "Accuracy"
-#  bottom: "fc9"
+#  bottom: "fullyconnected9"
 #  bottom: "labels"
 #  top: "accuracy"
 #  include: { phase: TEST }
@@ -529,7 +529,7 @@ layer {
 # layer {
 #  name: "loss_cls"
 #  type: "SoftmaxWithLoss"
-#  bottom: "fc9"
+#  bottom: "fullyconnected9"
 #  bottom: "labels"
 #  top: "loss_cls"
 #  loss_weight: 1
@@ -537,10 +537,10 @@ layer {
 #====================tripletloss==================
 
 layer {
-  name: "fc9_1"
+  name: "fullyconnected9_1"
   type: "InnerProduct"
-  bottom: "fc7"
-  top: "fc9_1"
+  bottom: "fullyconnected7"
+  top: "fullyconnected9_1"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -563,7 +563,7 @@ layer {
 layer {
   name: "norm2"
   type: "Python"
-  bottom: "fc9_1"
+  bottom: "fullyconnected9_1"
   top: "norm2"
   python_param {
     module: "l2norm_layer"

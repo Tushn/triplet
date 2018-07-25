@@ -1,13 +1,16 @@
 import os
 
 # Training image data path
-IMAGEPATH = 'data/face/'
+#IMAGEPATH = 'data/face/'
+#IMAGEPATH = '../models/train.txt'
+IMAGEPATH = '../faces'
 
 # LFW image data path
-LFW_IMAGEPATH = 'data/LFW/lfw-deepfunneled/'
+LFW_IMAGEPATH = '../data/LFW/lfw-deepfunneled/'
 
 # Path to caffe directory
-CAFFEPATH = '~/caffe'
+#CAFFEPATH = '~/caffe'
+CAFFEPATH = '~/anaconda3/bin'
 
 # Snapshot iteration
 SNAPSHOT_ITERS = 2000
@@ -19,7 +22,7 @@ MAX_ITERS = 50000
 TRIPLET_BATCH_SIZE = 50
 
 # The number of samples in each minibatch for other loss
-BATCH_SIZE = 60
+BATCH_SIZE = 15
 
 # If need to train tripletloss, set False when pre-train
 TRIPLET_LOSS = True

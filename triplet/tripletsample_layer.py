@@ -17,7 +17,9 @@ class TripletSampleLayer(caffe.Layer):
 
     def forward(self, bottom, top):
         """Get blobs and copy them into this layer's top blob vector."""
-
+        #from collections import defaultdict
+        #import config as cfg
+        #bottom = [solver.test_nets[0].blobs['data'], solver.test_nets[0].blobs['label']]
         bottom_data = np.array(bottom[0].data)
         bottom_label = np.array(bottom[1].data)
         self.index_map = []
@@ -49,7 +51,7 @@ class TripletSampleLayer(caffe.Layer):
                 # max iteration
                 max_iter = bottom[0].num * 2
                 while len(label_index_map) > 1 and (negative_label == anchor_label or semihard):
-                    negative_label = np.random.choice(label_index_map.keys())
+                    negative_label = np.random.choice(list(label_index_map.keys()))
                     negative_index = np.random.choice(
                         label_index_map[negative_label])
                     negative = bottom_data[negative_index]
@@ -74,6 +76,7 @@ class TripletSampleLayer(caffe.Layer):
                 top_positive.append(positive)
                 top_negative.append(negative)
 
+                #index_map.append([i, positive_index, negative_index])
                 self.index_map.append([i, positive_index, negative_index])
 
         top[0].reshape(*np.array(top_anchor).shape)
