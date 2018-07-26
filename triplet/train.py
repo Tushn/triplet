@@ -33,6 +33,7 @@ class SolverWrapper(object):
         with open(solver, 'rt') as f:
             pb2.text_format.Merge(f.read(), self.solver_param)
 
+        #self.solver.test_nets[0].blobs['data']
         self.solver.net.layers[0].set_data(data)
 
     def snapshot(self):
@@ -64,10 +65,8 @@ class SolverWrapper(object):
             timer.toc()
 
             if self.solver.iter % (1 * self.solver_param.display) == 0:
-                print('---------------------------------------------------------')
                 print('speed: {:.3f}s / iter'.format(timer.average_time))
                 print('time remains: {}s'.format(timer.remain(self.solver.iter, max_iters)))
-                print('---------------------------------------------------------')
 
             if self.solver.iter % cfg.SNAPSHOT_ITERS == 0:
                 last_snapshot_iter = self.solver.iter
@@ -99,8 +98,10 @@ if __name__ == '__main__':
 
     print('Solving...')
     sw.train_model(max_iters)
+#    sw.solver.net.forward()
     print('done solving')
 
 
-myself = sw.solver.net.layers[0].getSelf()
-myself.set_data(data)
+#myself = sw.solver.net.layers[0].getSelf()
+#myself.set_data(data)
+#sw.solver.net.layers[0]._data._sample

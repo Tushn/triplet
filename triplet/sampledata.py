@@ -14,7 +14,8 @@ class sampledata():
 
         for num, personname in list(enumerate(sorted(os.listdir(face_path)))):
             person_path = face_path +'/'+ personname;
-            picnames = [{'picname': personname + '/face/' + i, 'flipped': False}
+            # picnames = [{'picname': personname + '/face/' + i, 'flipped': False} 
+            picnames = [{'picname':  '/faces/'+ personname +'/' + i, 'flipped': False} 
                         for i in sorted(os.listdir(person_path))
                         if os.path.getsize(os.path.join(person_path, i)) > 0]
             if(len(picnames)>1):

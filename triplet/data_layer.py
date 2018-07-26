@@ -5,6 +5,8 @@ import copy
 import config as cfg
 from utils.blob import prep_im_for_blob, im_list_to_blob
 
+import matplotlib.pyplot as plt
+
 class DataLayer(caffe.Layer):
     def getName(self):
         return "DataLayer";
@@ -53,6 +55,7 @@ class DataLayer(caffe.Layer):
             sample.extend(self._data._sample[:self._index])
 
         im_blob, labels_blob = self._get_image_blob(sample)
+        plt.imshow(im_blob[0].transpose(1,2,0))
         blobs = {'data': im_blob,
                  'labels': labels_blob}
         return blobs
@@ -61,10 +64,17 @@ class DataLayer(caffe.Layer):
         im_blob = []
         labels_blob = []
         for i in range(self.batch_size):
-            im = cv2.imread(cfg.IMAGEPATH + sample[i]['picname'])
+#            im = cv2.imread(cfg.IMAGEPATH + sample[i]['picname'])
+            im = cv2.imread('..' + sample[i]['picname'])
+            print('sample[i][\'picname\']: '+sample[i]['picname'])
             if sample[i]['flipped']:
                 im = im[:, ::-1, :]
-            personname = sample[i]['picname'].split('/')[0]
+            
+            personname = sample[i]['picname'].split('/')[2]
+            
+            print("personname: "+personname)
+#            print("keys: "+str(self._data._sample_label))
+            
             labels_blob.append(self._data._sample_label[personname])
             im = prep_im_for_blob(im)
 
@@ -77,11 +87,9 @@ class DataLayer(caffe.Layer):
     def set_data(self, data):
         """Set the data to be used by this layer during training."""
         self._data = data
-        print(' -------------------------------------------------- ')
         if cfg.TRIPLET_LOSS:
             print('Epoch {}'.format(self._epoch))
             self._shuffle_data()
-            print(' ----------------------  ok  ---------------------- ')
         else:
             np.random.shuffle(self._data._sample)
 
@@ -109,7 +117,7 @@ class DataLayer(caffe.Layer):
         """Get blobs and copy them into this layer's top blob vector."""
         blobs = self._get_next_minibatch()
 
-        for blob_name, blob in blobs.iteritems():
+        for blob_name, blob in blobs.items():
             top_ind = self._name_to_top_map[blob_name]
             top[top_ind].data[...] = blob
 
