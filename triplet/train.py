@@ -90,7 +90,7 @@ class SolverWrapper(object):
 if __name__ == '__main__':
     """Train network."""
     solver = '../models/solver.prototxt' # 'models/solver.prototxt'
-    output_dir = '../data/models/triplet/'
+    output_dir = '../data/'
     pretrained_model = '../models/VGG_CNN_M_1024.caffemodel'
     gpu_id = 0
     data = sampledata()
