@@ -6,6 +6,8 @@ This code is a fork project from [Triplet of Peng Zhang](https://github.com/hizh
 
 I recommend you install Anaconda and install Caffe by command [here](https://anaconda.org/conda-forge/caffe). You will need to download [caffemodel](http://www.robots.ox.ac.uk/~vgg/software/deep_eval/releases/bvlc/VGG_CNN_M_1024.caffemodel) and [database](http://vis-www.cs.umass.edu/lfw/). That caffemodel put in "models" directory and database in "faces", both directories in root this project.
 
+I'm using a version 30x30 that images, you can to do using resize with Python or download [here](https://www.4shared.com/s/fOP1_xJ4zfi).
+
 ## Executions
 
 Run "train.py" in Anaconda, try to run foward: 
