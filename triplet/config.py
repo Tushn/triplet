@@ -3,7 +3,7 @@ import os
 # Training image data path
 #IMAGEPATH = 'data/face/'
 #IMAGEPATH = '../models/train.txt'
-IMAGEPATH = '../faces'
+IMAGEPATH = '../../../../data/faces/'
 
 # LFW image data path
 LFW_IMAGEPATH = '../data/LFW/lfw-deepfunneled/'
@@ -16,7 +16,7 @@ CAFFEPATH = '~/anaconda3/bin'
 SNAPSHOT_ITERS = 2000
 
 # Max training iteration
-MAX_ITERS = 50000
+MAX_ITERS = 500
 
 # The number of samples in each minibatch for triplet loss
 TRIPLET_BATCH_SIZE = 50
@@ -38,3 +38,6 @@ SEMI_HARD = True
 
 # Number of samples of each identity in a minibatch
 CUT_SIZE = 5
+
+
+TARGET_SIZE = 30

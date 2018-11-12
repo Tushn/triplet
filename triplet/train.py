@@ -22,8 +22,13 @@ class SolverWrapper(object):
         
         self.data = data
         self.solver_text = solver
-        
+
+        print('solver: '+solver)
         self.solver = caffe.SGDSolver(solver)
+        self.solver.net.layers[0].set_data(data)
+#        f = open(solver, 'r')
+#        self.solver = caffe.SGDSolver(f.read()) # .get_solver()
+#        f.close()
         if pretrained_model is not None:
             print(('Loading pretrained model '
                    'weights from {:s}').format(pretrained_model))
@@ -99,6 +104,8 @@ if __name__ == '__main__':
     print('Solving...')
     sw.train_model(max_iters)
 #    sw.solver.net.forward()
+#    sw.solver.net.layers[0].data._sample[0]
+#    blob = sw.solver.net.layers[0]._get_next_minibatch()
     print('done solving')
 
 

@@ -1,6 +1,7 @@
 net: "../models/train.prototxt"
-test_iter: 1000
-test_interval: 1000000
+#net: "./train.prototxt"
+test_iter: 100
+test_interval: 1000
 base_lr: 0.1
 lr_policy: "step"
 gamma: 0.1
@@ -9,7 +10,7 @@ display: 20
 max_iter: 50000
 momentum: 0.9
 weight_decay: 0.0005
-snapshot: 1000000
-snapshot_prefix: "../vggnet_triplet"
+#snapshot: 1000
+#snapshot_prefix: "../vggnet_triplet"
 #snapshot_prefix: "data/models/vggnet_triplet"
 solver_mode: GPU

@@ -1,7 +1,6 @@
 import os
 import config as cfg
-import numpy as np
-
+#import numpy as np
 
 class sampledata():
 
@@ -13,9 +12,12 @@ class sampledata():
         face_path = cfg.IMAGEPATH
 
         for num, personname in list(enumerate(sorted(os.listdir(face_path)))):
+#        for num, personname in list(enumerate(sorted(os.listdir('../../../../data/faces/')))):
             person_path = face_path +'/'+ personname;
+#            print('Directory: %d, face_path: %s, personname %s' % (cont, face_path, personname))
+            
             # picnames = [{'picname': personname + '/face/' + i, 'flipped': False} 
-            picnames = [{'picname':  '/faces/'+ personname +'/' + i, 'flipped': False} 
+            picnames = [{'picname':  '/tutu_faces/'+ personname +'/' + i, 'flipped': False} 
                         for i in sorted(os.listdir(person_path))
                         if os.path.getsize(os.path.join(person_path, i)) > 0]
             if(len(picnames)>1):
